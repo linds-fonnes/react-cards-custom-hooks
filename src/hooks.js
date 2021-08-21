@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 const useFlip = () => {
@@ -9,13 +9,12 @@ const useFlip = () => {
   return [state, toggleFlip];
 };
 
-const useAxios = (baseUrl, options = null) => {
+const useAxios = (baseUrl) => {
   const [response, setResponse] = useState([]);
   const [error, setError] = useState(null);
 
-  const fullUrl = !options ? baseUrl : baseUrl + "/" + options;
-  const fetchData = async () => {
-    console.log(fullUrl);
+  const fetchData = async (options) => {
+    const fullUrl = !options ? baseUrl : baseUrl + options;
     try {
       const resp = await axios.get(fullUrl);
       setResponse((data) => [...data, resp.data]);
